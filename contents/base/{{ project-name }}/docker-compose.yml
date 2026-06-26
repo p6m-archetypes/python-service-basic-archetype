@@ -1,0 +1,4 @@
+# A basic service declares no resource dependencies, so there are no local
+# infrastructure services to run. Add services here (e.g. postgres, redis) as
+# the service grows to need them.
+services: {}
