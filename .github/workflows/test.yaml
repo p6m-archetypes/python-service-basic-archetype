@@ -1,0 +1,21 @@
+name: Test Archetype
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  test:
+    uses: p6m-workflows/archetype-test/.github/workflows/workflow.yml@v1
+    with:
+      harness-ref: main
+      # This is a Gen-2 (Lua) archetype, rendered by the default archetect 3.x.
+      # No language toolchain needed: the harness always sets up uv, which is the
+      # generated project's package manager. The build tier pins Python 3.12 itself.
+      toolchain: none
+    secrets: inherit
