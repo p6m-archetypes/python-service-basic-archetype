@@ -12,6 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
+        # The live tier boots the service via `uv run`; its uv supervisor can outlive prova's
+        # teardown and hold the shared cache lock, which deadlocks the post-run `uv cache prune`.
+        # Acceptance runs are infrequent, so skip the shared cache to avoid that lock contention.
+        with:
+          enable-cache: false
       # The archetype pins its composed libraries as git@github.com: (SSH) sources; CI has no SSH
       # key, so rewrite those to anonymous HTTPS (every referenced library repo is public) so
       # prova's in-process archetect render can fetch them.
