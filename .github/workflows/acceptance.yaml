@@ -11,17 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
-        # The live tier boots the service via `uv run`; its uv supervisor can outlive prova's
-        # teardown and hold the shared cache lock, which deadlocks the post-run `uv cache prune`.
-        # Acceptance runs are infrequent, so skip the shared cache to avoid that lock contention.
-        with:
-          enable-cache: false
-      # The archetype pins its composed libraries as git@github.com: (SSH) sources; CI has no SSH
-      # key, so rewrite those to anonymous HTTPS (every referenced library repo is public) so
-      # prova's in-process archetect render can fetch them.
-      - name: Resolve SSH library sources over HTTPS
-        run: git config --global url."https://github.com/".insteadOf "git@github.com:"
+      # No language toolchain step (S8b): the suite renders, inspects, and builds the archetype's
+      # own production image. Docker is the single requirement.
       - uses: prova-rs/run-action@v1
         with:
           profile: ci
+          args: "-U"
