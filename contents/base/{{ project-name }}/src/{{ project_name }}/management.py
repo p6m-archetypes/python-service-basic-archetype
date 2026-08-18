@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from prometheus_client import make_asgi_app
 
-management_app = FastAPI(title="{{ PrefixName }}{{ SuffixName }} Management")
+management_app = FastAPI(title="{{ ProjectName }} Management")
 
 # Mount Prometheus metrics endpoint
 metrics_app = make_asgi_app()

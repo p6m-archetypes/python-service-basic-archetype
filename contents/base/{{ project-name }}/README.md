@@ -1,4 +1,4 @@
-# {{ PrefixName }}{{ SuffixName }}
+# {{ ProjectName }}
 
 A basic FastAPI service with platform plumbing (observability, health, CI, Docker)
 and no resource dependencies. Add persistence, caching, or messaging as the service grows.
@@ -10,7 +10,7 @@ and no resource dependencies. Add persistence, caching, or messaging as the serv
 uv sync --group dev
 
 # Run the service
-uv run uvicorn {{ prefix_name }}_{{ suffix_name }}.main:app --reload --port {{ service_port }}
+uv run uvicorn {{ project_name }}.main:app --reload --port {{ service_port }}
 
 # Run tests
 uv run pytest

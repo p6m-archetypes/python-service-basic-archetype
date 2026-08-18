@@ -100,7 +100,7 @@ prova.group("python-basic layout", function(g)
 
   g:test("wires prefix/suffix and ports through file contents", function(t)
     local root = t:use(project).path
-    -- {{ PrefixName }}{{ SuffixName }} -> ExampleService in the app title; project-name in identity.
+    -- {{ ProjectName }} -> ExampleService in the app title; project-name in identity.
     t:expect(fs.read(root .. "/src/example_service/main.py"), "app title"):contains("ExampleService")
     t:expect(fs.read(root .. "/src/example_service/router.py"), "identity stub"):contains(PROJECT_DIR)
     -- service-port + derived management-port land in settings.
